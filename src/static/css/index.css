@@ -1,0 +1,114 @@
+* {
+	color: white;
+	padding: 0;
+	margin: 0;
+}
+
+html, body {
+	height: 100%;
+	background-color: #606060;
+}
+
+
+header {
+	background-color: #2d2d2d;
+	height: 48px;
+	padding: 0 0 0 0;
+}
+
+.navbar-top {
+	color: white;
+	height: 100%;
+}
+
+.navbar-button {
+	color: white;
+	text-decoration: none;
+	height: 100%;
+	padding: 0px 5px 0px 5px;
+}
+
+.navbar-button:hover {
+	color: #8c198c;
+	background-color: white;
+}
+
+#filter-search-button {
+	width: 10%;
+	margin: 0 auto;
+	height: 50px;
+	text-align: center;
+	background-color: white;
+	color: #000090
+}
+
+.center-container {
+	margin: 0 auto;
+	width: 60%;
+	max-width: 940px;
+	height: 100%;
+}
+
+.app-container {
+	height: 400px;
+	background-color: #0e0e7e;
+}
+
+.app-container input {
+	background-color: #505050;
+}
+
+h1 {
+	height: 100px;
+	text-align: center;
+	vertical-align: middle;
+	font-size: 2em;
+	
+}
+
+#specific-search {
+	font-size: 1.25em;
+	height:10%;
+	min-height: 48px;
+}
+
+#specific-search input {
+	font-size: 1em;
+}
+
+#filter-search {
+	font-size: 1em;
+	width: 100%;
+}
+
+#filter-search-heading {
+	margin: 0 auto;
+	height: 50px;
+	text-align: center;
+	font-size: 1.25em;
+}
+
+#ingredients-include {
+	float: left;
+	width: 50%;
+	text-align: center;
+}
+
+#ingredients-avoid {
+	float: left;
+	width: 50%;
+	min-width: 10em;
+	text-align: center;
+}
+
+.else-container {
+	color: white;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
