@@ -37,16 +37,14 @@ class SearchSpecific extends Component {
 	render() {
 		return (
 			<div id="specific-search">
-				<h2>Looking for something specific?</h2>
+				<h3>Looking for something specific?</h3>
 				<form className="specific-form" onSubmit={this.handleFormSubmit}>
 					<TextField
 						id="specific-search-input"
 						label="Drink Name"
-						className={'search-input'}
 						value={this.state.drinkName}
 						onChange={this.handleChange}
-						margin="normal"
-						variant="outlined"
+						variant="filled"
 					/>
 
 					<Button	
@@ -55,7 +53,10 @@ class SearchSpecific extends Component {
 						value="Search"
 						margin="normal"
 						variant="contained"
-					/>
+						color="primary"
+					>
+					Search by Name
+					</Button>
 				</form>
 			</div>
 		);

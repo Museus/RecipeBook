@@ -19,28 +19,18 @@ header {
 .navbar-top {
 	color: white;
 	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .navbar-button {
 	color: white;
 	text-decoration: none;
 	height: 100%;
-	text-align: center;
-	line-height: 48px;
-	width: 90px;
 	padding: 0px 5px 0px 5px;
 }
 
 .navbar-button:hover {
 	color: #8c198c;
 	background-color: white;
-}
-
-.github-button {
-	width: 150px;
 }
 
 #filter-search-button {
@@ -68,8 +58,9 @@ header {
 }
 
 h1 {
-	padding-top: 20px;
+	height: 100px;
 	text-align: center;
+	vertical-align: middle;
 	font-size: 2em;
 	
 }
@@ -86,10 +77,12 @@ h1 {
 #specific-search-input {
 	display: inline;
 	background-color: white;
+	margin: 10px 20px 10px 20px;
 	vertical-align: top;
 }
 
 #specific-search-button {
+	height: 48px;
 	display: inline;
 	margin: 10px 20px 10px 20px;
 	vertical-align: middle;
@@ -104,10 +97,9 @@ h1 {
 	width: 100%;
 }
 
-h3 {
+#filter-search h3 {
 	margin: 0 auto;
 	height: 20%;
-	vertical-align: center;
 	min-height: 48px;
 }
 

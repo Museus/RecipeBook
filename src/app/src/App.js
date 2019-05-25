@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 /* Import components */
 import SearchSpecific from './components/search-specific.js';
@@ -14,13 +15,22 @@ class App extends Component {
 			ingredientsInclude: '',
 			ingredientsAvoid: ''
 		};
+
+		this.theme = createMuiTheme({
+			palette: {
+				primary: {
+					main: '#cc99cc',
+				},
+			},
+		});
 	}
 
 	render() {
 		return (
 			<div className="center-container">
-			<SearchSpecific drinkName={this.state.specificSearchName}  />
-			<SearchSuggestion />
+				<h1>What Can I Make?</h1>
+				<SearchSpecific theme={this.theme} />
+				<SearchSuggestion theme={this.theme} />
 			</div>
 		);
 	}

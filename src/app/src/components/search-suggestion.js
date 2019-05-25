@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 import Button from '@material-ui/core/Button';
+import { createMuiTheme } from '@material-ui/core/styles';
 
 
 class SearchSuggestion extends Component {
@@ -42,23 +43,27 @@ class SearchSuggestion extends Component {
 	render() {
 		return (
 			<div id="filter-search">
-				<h3>Looking for something specific?</h3>
+				<h3>Need a suggestion?</h3>
 				<form className="filter-form" onSubmit={this.handleFormSubmit}>
-					<div id="ingredients-include">
-						Which ingredients should we include?
-						<Select
-							isMulti
-							options={this.state.ingredientsOptions}
-							name="include"
-						/>
-					</div>
-					<div id="ingredients-avoid">
-						Which ingredients should we avoid?
-						<Select
-							isMulti
-							options={this.state.ingredientsOptions}
-							name="avoid"
-						/>
+					<div className="flex-container">
+						<div id="ingredients-include" className="ingredients-list">
+							<h4>Which ingredients should we include?</h4>
+							<Select
+								isMulti
+								className="multiselect-ingredients"
+								options={this.state.ingredientsOptions}
+								name="include"
+							/>
+						</div>
+						<div id="ingredients-avoid" className="ingredients-list">
+							<h4>Which ingredients should we avoid?</h4>
+							<Select
+								isMulti
+								className="multiselect-ingredients"
+								options={this.state.ingredientsOptions}
+								name="avoid"
+							/>
+						</div>
 					</div>
 
 					<Button 
@@ -66,7 +71,10 @@ class SearchSuggestion extends Component {
 						value="Search"
 						margin="normal"
 						variant="contained"
-					/>		
+						color="primary"
+					>
+					Search by Ingredients
+					</Button>
 				</form>
 			</div>
 		);
