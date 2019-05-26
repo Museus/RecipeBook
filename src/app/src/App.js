@@ -12,9 +12,9 @@ class App extends Component {
 
 		this.state = {
 			specificSearchName: '',
-			ingredientsInclude: [],
-			ingredientsExclude: [],
-			ingredientsOptions: [],
+			ingrInclude: [],
+			ingrExclude: [],
+			ingrOptions: [],
 			drinkResults: []
 		};
 		
@@ -23,6 +23,13 @@ class App extends Component {
 		this.handleInclIngr = this.handleInclIngr.bind(this);
 		this.handleExclIngr = this.handleExclIngr.bind(this);
 		this.axios = require('axios');
+	}
+
+	componentDidMount() {
+		this.axios.get('http://127.0.0.1:5000/ingredients')
+		.then(response => {
+			this.setState({ingrOptions: response.data});
+		});
 	}
 
 	handleSearchSpecific() {
@@ -51,13 +58,13 @@ class App extends Component {
 
 	handleInclIngr = (selectedOption) => {
 		this.setState({
-			ingredientsInclude: selectedOption
+			ingrInclude: selectedOption
 		});
 	}
 
 	handleExclIngr = (selectedOption) => {
 		this.setState({
-			ingredientsExclude: selectedOption
+			ingrExclude: selectedOption
 		});
 	}
 
@@ -73,6 +80,7 @@ class App extends Component {
 					updateInclude={this.handleInclIngr}
 					updateExclude={this.handleExclIngr}
 					searchFunction={this.handleSearchSuggestion}
+					ingrOptions={this.state.ingrOptions}
 				/>
 				{
 				this.state.drinkResults.length !== 0 &&

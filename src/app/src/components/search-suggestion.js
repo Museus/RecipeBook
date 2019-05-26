@@ -1,18 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Select from 'react-select';
 import Button from '@material-ui/core/Button';
 
 
 function SearchSuggestion(props) {
-
-	const [ingrOptions, setIngrOptions] = useState([]);
-	const axios = require('axios');
-
-	axios.get('http://127.0.0.1:5000/ingredients')
-		.then(response => {
-			setIngrOptions(response.data);
-		});
-	
 
 	return (
 		<div id="filter-search">
@@ -23,7 +14,7 @@ function SearchSuggestion(props) {
 					<Select
 						isMulti
 						className="multiselect-ingredients"
-						options={ingrOptions}
+						options={props.ingrOptions}
 						onChange={props.updateInclude}
 					/>
 				</div>
@@ -32,7 +23,7 @@ function SearchSuggestion(props) {
 					<Select
 						isMulti
 						className="multiselect-ingredients"
-						options={ingrOptions}
+						options={props.ingrOptions}
 						onChange={props.updateExclude}
 					/>
 				</div>
