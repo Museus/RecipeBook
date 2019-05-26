@@ -10,17 +10,9 @@ function DrinkTile(props) {
 			<Typography variant="h6">
 				{props.drinkInfo.name}
 			</Typography>
+
 			<Typography variant="subtitle2">
-				{props.drinkInfo.type}
-			</Typography>
-			<Typography>
-				{
-				props.drinkInfo.IBA === {}  &&
-				<a href={props.drinkInfo.IBA.link}>Official IBA Recipe</a>
-				}
-			</Typography>
-			<Typography>
-				You have {props.drinkInfo.recipeHits} of {props.drinkInfo.totalIngredients} ingredients.
+				{props.drinkInfo.category}
 			</Typography>
 		</Paper>
 	);

@@ -15,7 +15,7 @@ class DBConnection:
             raise Exception("[ERROR] Failed to connect to database server")
 
         # Get relevant collections
-        self.recipes = self.client['RecipeBook'].drink_recipes
+        self.recipes = self.client['RecipeBook'].recipes
         self.counters = self.client['RecipeBook'].counters
         self.resources = self.client['RecipeBook'].resources
 
@@ -45,29 +45,42 @@ class DBConnection:
         regex = ".*" + str(drink_info.get('name')) + ".*"
         for recipe in self.recipes.find({"name": {'$regex' : regex}}):
             recipes.append(recipe) 
+        print(recipes)
         return json.dumps(recipes, indent=2, default=json_util.default)
         
-    def get_drink_recommendation(self, drink_info):
+    def get_drink_suggestion(self, ingr_include, ingr_exclude):
         drink_list = []
-        ingredients_list = drink_info['ingredients_list']
+        incl_list = []
 
-        for ingredient in ingredients_list:
+        # STOP UNDO
 
-            # Find recipe that matches ingredient
-            for recipe in self.recipes.find({"ingredients": {"ingredient_name": ingredient['ingredient_name']}}):
+        for ingredient in ingr_include:
+            incl_list.append({'ingredient': ingredient})
 
-                # If the drink has been found before
-                if not drink_list[recipe['drink_id']] is None:
-                    # Increment the count of ingredients
-                    drink_list[recipe['drink_id']].hits += 1
-                else:
-                    # Add the recipe to the hash table
-                    drink_list[recipe['drink_id']] = recipe
-                    # Add a hits field set to 1
-                    drink_list[recipe['drink_id']].hits = 1
+        #incl_json = json.dumps(incl_list, indent=2, default=json_util.default)
+        #print(incl_json)
 
-        print(drink_list)
-        return drink_list
+        # Find recipe that matches ingredient
+        for recipe in self.recipes.find({"ingredients": {'$elemMatch': { '$or': incl_list}}}):
+            drink_list.append(recipe)
+#
+#            # If the drink has been found before
+#            if not drink_dict[recipe['name']] is None:
+#                # Increment the count of ingredients
+#                drink_dict[recipe['name']].hits += 1
+#            else:
+#                # Add the recipe to the hash table
+#                drink_dict[recipe['name']] = recipe
+#
+#                # Add a hits field set to 1
+#                drink_dict[recipe['name']].hits = 1
+#
+#
+#        sortedByHits = {}
+#        for drink, hits in sorted(drink_dict.items(), key=lambda entry: entry['hits']):
+#            sortedByHits.add(drink)
+
+        return json.dumps(drink_list, indent=2, default=json_util.default)
 
     def get_ingredients(self):
         ingredients = self.resources.find_one({"name": "ingredients-list"})['list']

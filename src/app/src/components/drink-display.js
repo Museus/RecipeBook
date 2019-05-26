@@ -7,9 +7,13 @@ import DrinkTile from './drink-tile.js';
 function DrinkDisplay(props) {
 
 	return(
-		<Grid className="drink-display">
-			<DrinkTile drinkInfo={props.displayDrinks[0]} />
-		</Grid>
+		<>
+		{
+			props.drinkResults.map((drink, index) => {
+				return <DrinkTile drinkInfo={drink} className="drink-tile" />
+			})
+		}
+		</>
 	);
 }
 

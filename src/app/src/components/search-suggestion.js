@@ -31,10 +31,10 @@ function SearchSuggestion(props) {
 
 			<Button 
 				id="suggestion-button"
-				value="Search"
 				margin="normal"
 				variant="contained"
 				color="primary"
+				onClick={props.searchFunction}
 			>
 			Search by Ingredients
 			</Button>

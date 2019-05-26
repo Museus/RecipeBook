@@ -20,9 +20,12 @@ class App extends Component {
 		
 		this.handleNameChange = this.handleNameChange.bind(this);
 		this.handleSearchSpecific = this.handleSearchSpecific.bind(this);
+		this.handleSearchSuggestion = this.handleSearchSuggestion.bind(this);
 		this.handleInclIngr = this.handleInclIngr.bind(this);
 		this.handleExclIngr = this.handleExclIngr.bind(this);
+		this.parseParams = this.parseParams.bind(this);
 		this.axios = require('axios');
+		this.qs = require('qs');
 	}
 
 	componentDidMount() {
@@ -49,6 +52,43 @@ class App extends Component {
 			console.log("Error: " + error);
 		});
 	}
+
+	handleSearchSuggestion() {
+		const this_ref = this;
+
+		this.axios.get('http://127.0.0.1:5000/suggestion', {
+			params: {
+				'ingrInclude': this_ref.state.ingrInclude,
+				'ingrExclude': this_ref.state.ingrExclude
+			},
+			paramsSerializer: params => {
+				return this_ref.parseParams(params)
+			}
+		}).then(response => {
+			var drinkList = [];
+
+			for(var i=0; i < response.data.length; i++)
+				drinkList.push(response.data[i]);
+
+			this_ref.setState({ drinkResults: drinkList });
+		}).catch(error => {
+			console.log("Error: " + error);
+		});
+	}
+
+	parseParams = (params) => {
+		let options = '';
+		
+		const keys = Object.keys(params);
+		keys.forEach(key => {
+			params[key].forEach(ingr => {
+				options += key + '=' + ingr.value + '&';
+			});
+		});
+
+		console.log(options);
+		return options;
+	};
 
 	handleNameChange = (event) => {
 		this.setState({
@@ -84,7 +124,7 @@ class App extends Component {
 				/>
 				{
 				this.state.drinkResults.length !== 0 &&
-				<DrinkDisplay displayDrinks={this.state.drinkResults} />
+				<DrinkDisplay drinkResults={this.state.drinkResults} />
 				}
 			</div>
 		);

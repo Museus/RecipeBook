@@ -1,6 +1,7 @@
 from flask import Flask, request
 from db_conn import DBConnection
 from flask_cors import CORS
+import sys
 
 app = Flask(__name__)
 CORS(app)
@@ -16,9 +17,10 @@ def get_drink_by_name():
 
 @app.route('/suggestion', methods=['GET'])
 def get_drink_suggestion():
-    include_ingr = request.args['includeIngredients']
-    avoid_ingr = request.args['avoidIngredients']
-    return db_conn.get_drink_suggestion(include_ingr, avoid_ingr)
+    print("Suggestion")
+    ingr_include = request.args.getlist('ingrInclude')
+    ingr_exclude = request.args.getlist('ingrExclude')
+    return db_conn.get_drink_suggestion(ingr_include, ingr_exclude)
 
 @app.route('/contribute-recipe', methods=['POST'])
 def add_drink():
