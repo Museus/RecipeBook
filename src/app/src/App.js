@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { createMuiTheme } from '@material-ui/core/styles';
 
 /* Import components */
 import SearchSpecific from './components/search-specific.js';
 import SearchSuggestion from './components/search-suggestion.js';
+import DrinkDisplay from './components/drink-display.js';
 
 class App extends Component {
 
@@ -13,24 +13,35 @@ class App extends Component {
 		this.state = {
 			specificSearchName: '',
 			ingredientsInclude: '',
-			ingredientsAvoid: ''
+			ingredientsAvoid: '',
+			displayDrinks: []
 		};
+		
+		this.handleResults = this.handleResults.bind(this);
+	}
 
-		this.theme = createMuiTheme({
-			palette: {
-				primary: {
-					main: '#cc99cc',
-				},
-			},
-		});
+	handleResults(drinkList) {
+		console.log("Got handed " + drinkList.length + " drinks.");
+		this.setState({displayDrinks: drinkList});
 	}
 
 	render() {
 		return (
 			<div className="center-container">
-				<h1>What Can I Make?</h1>
-				<SearchSpecific theme={this.theme} />
-				<SearchSuggestion theme={this.theme} />
+				<SearchSpecific 
+					drinkName={this.state.specificSearchName} 
+					displayDrinks={this.state.displayDrinks}
+					updateResults={this.handleResults}
+				/>
+				<SearchSuggestion 
+					ingredientsInclude={this.state.ingredientsInclude}
+					ingredientsAvoid={this.state.ingredientsAvoid}
+					updateResults={this.handleResults}
+				/>
+				{
+				this.state.displayDrinks.length != 0 &&
+				<DrinkDisplay displayDrinks={this.state.displayDrinks} />
+				}
 			</div>
 		);
 	}

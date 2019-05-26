@@ -9,12 +9,17 @@ class SearchSpecific extends Component {
 		super(props);
 
 		this.state = {
-			drinkName: ''
+			drinkName: '',
+			results: []
 		}
 
 		this.handleFormSubmit = this.handleFormSubmit.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.axios = require('axios');
+	}
+
+	componentDidMount() {
+		console.log("Triggered.");
 	}
 
 	handleChange(event) {
@@ -24,13 +29,25 @@ class SearchSpecific extends Component {
 	}
 
 	handleFormSubmit() {
+		console.log("Submitted form");
+		const this_ref = this;
 		this.axios.get('http://127.0.0.1:5000/drink', {
-
 			params: {
 				"name": this.state.drinkName
 			}
-		}).then(response => {
-			console.log(response);
+
+		}).then(function(response) {
+			console.log("Received response of length " + response.data.length);
+			var drinkList = [];
+			for(var index = 0; index < response.data.length; index++) {
+				console.log(response.data[index]);
+				this_ref.setState({results: [...this_ref.state.results, response.data[index]]});
+				drinkList.push(response.data[index]);
+			}
+			console.log("Added " + drinkList.length + " drinks to list.");
+			this_ref.props.updateResults(drinkList);
+		}).catch(function(error) {
+			console.log("Error: " + error);
 		});
 	}
 
@@ -38,7 +55,7 @@ class SearchSpecific extends Component {
 		return (
 			<div id="specific-search">
 				<h3>Looking for something specific?</h3>
-				<form className="specific-form" onSubmit={this.handleFormSubmit}>
+				<div className="specific-form">
 					<TextField
 						id="specific-search-input"
 						label="Drink Name"
@@ -49,7 +66,7 @@ class SearchSpecific extends Component {
 
 					<Button	
 						id="specific-search-button"
-						type="submit"
+						onClick={this.handleFormSubmit}
 						value="Search"
 						margin="normal"
 						variant="contained"
@@ -57,7 +74,7 @@ class SearchSpecific extends Component {
 					>
 					Search by Name
 					</Button>
-				</form>
+				</div>
 			</div>
 		);
 	}

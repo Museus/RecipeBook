@@ -40,9 +40,10 @@ class DBConnection:
         # Add to the database
         recipe_id = self.recipes.insert_one(drink_info).inserted_id
 
-    def get_drink(self, drink_info):
+    def get_drink_by_name(self, drink_info):
         recipes = []
-        for recipe in self.recipes.find(drink_info):
+        regex = ".*" + str(drink_info.get('name')) + ".*"
+        for recipe in self.recipes.find({"name": {'$regex' : regex}}):
             recipes.append(recipe) 
         return json.dumps(recipes, indent=2, default=json_util.default)
         
