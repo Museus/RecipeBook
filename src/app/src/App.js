@@ -12,35 +12,71 @@ class App extends Component {
 
 		this.state = {
 			specificSearchName: '',
-			ingredientsInclude: '',
-			ingredientsAvoid: '',
-			displayDrinks: []
+			ingredientsInclude: [],
+			ingredientsExclude: [],
+			ingredientsOptions: [],
+			drinkResults: []
 		};
 		
-		this.handleResults = this.handleResults.bind(this);
+		this.handleNameChange = this.handleNameChange.bind(this);
+		this.handleSearchSpecific = this.handleSearchSpecific.bind(this);
+		this.handleInclIngr = this.handleInclIngr.bind(this);
+		this.handleExclIngr = this.handleExclIngr.bind(this);
+		this.axios = require('axios');
 	}
 
-	handleResults(drinkList) {
-		console.log("Got handed " + drinkList.length + " drinks.");
-		this.setState({displayDrinks: drinkList});
+	handleSearchSpecific() {
+		const this_ref = this;
+		this.axios.get('http://127.0.0.1:5000/drink', {
+			params: {
+				'name': this.state.specificSearchName
+			}
+		}).then(response => {
+			var drinkList = [];
+
+			for(var i=0; i < response.data.length; i++)
+				drinkList.push(response.data[i]);
+
+			this_ref.setState({ drinkResults: drinkList });
+		}).catch(error => {
+			console.log("Error: " + error);
+		});
 	}
+
+	handleNameChange = (event) => {
+		this.setState({
+			specificSearchName: event.target.value
+		});
+	}
+
+	handleInclIngr = (selectedOption) => {
+		this.setState({
+			ingredientsInclude: selectedOption
+		});
+	}
+
+	handleExclIngr = (selectedOption) => {
+		this.setState({
+			ingredientsExclude: selectedOption
+		});
+	}
+
 
 	render() {
 		return (
 			<div className="center-container">
 				<SearchSpecific 
-					drinkName={this.state.specificSearchName} 
-					displayDrinks={this.state.displayDrinks}
-					updateResults={this.handleResults}
+					updateName={this.handleNameChange}
+					searchFunction={this.handleSearchSpecific}
 				/>
 				<SearchSuggestion 
-					ingredientsInclude={this.state.ingredientsInclude}
-					ingredientsAvoid={this.state.ingredientsAvoid}
-					updateResults={this.handleResults}
+					updateInclude={this.handleInclIngr}
+					updateExclude={this.handleExclIngr}
+					searchFunction={this.handleSearchSuggestion}
 				/>
 				{
-				this.state.displayDrinks.length != 0 &&
-				<DrinkDisplay displayDrinks={this.state.displayDrinks} />
+				this.state.drinkResults.length !== 0 &&
+				<DrinkDisplay displayDrinks={this.state.drinkResults} />
 				}
 			</div>
 		);

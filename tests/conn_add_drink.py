@@ -6,9 +6,9 @@ from random import randint
 
 sys.path.insert(0, "/home/jredding/devel/RecipeBook/src")
 
-from dblink import DBLink
+from db_conn import DBConnection
 
-db_conn = DBLink()
+db_conn = DBConnection()
 
 def yes_no(question, default="yes"):
 

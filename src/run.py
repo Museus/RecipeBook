@@ -16,9 +16,9 @@ def get_drink_by_name():
 
 @app.route('/suggestion', methods=['GET'])
 def get_drink_suggestion():
-    include_ingr = request.args.includeIngredients
-    avoid_ingr = request.args.avoidIngredients
-
+    include_ingr = request.args['includeIngredients']
+    avoid_ingr = request.args['avoidIngredients']
+    return db_conn.get_drink_suggestion(include_ingr, avoid_ingr)
 
 @app.route('/contribute-recipe', methods=['POST'])
 def add_drink():
