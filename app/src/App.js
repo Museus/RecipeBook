@@ -56,7 +56,8 @@ class App extends Component {
 	handleSearchSuggestion() {
 		const this_ref = this;
 
-		this.axios.get('https://drinkdb-api.herokuapp.com/suggestion', {
+		//this.axios.get('https://drinkdb-api.herokuapp.com/suggestion', {
+		this.axios.get('http://localhost:5000/suggestion', {
 			params: {
 				'ingrInclude': this_ref.state.ingrInclude,
 				'ingrExclude': this_ref.state.ingrExclude
