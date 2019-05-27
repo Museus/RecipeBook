@@ -14,6 +14,16 @@ function DrinkTile(props) {
 			<Typography variant="subtitle2">
 				{props.drinkInfo.category}
 			</Typography>
+
+			<Typography varient="subtitle2">
+			{props.drinkInfo.ingredients.map(ingr => {
+				if(ingr.ingredient !== undefined) {
+					return (ingr.amount + " " + ingr.unit + " " + ingr.ingredient + ", ")
+				} else {
+					return (ingr.special + ", ")
+				}
+			})}
+			</Typography>
 		</Paper>
 	);
 }
