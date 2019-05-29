@@ -16,6 +16,8 @@ function SearchSuggestion(props) {
 						className="multiselect-ingredients"
 						options={props.ingrOptions}
 						onChange={props.updateInclude}
+						getOptionLabel={option => option['name']}
+						getOptionValue={option => option['name']}
 					/>
 				</div>
 				<div id="ingredients-avoid" className="ingredients-list">
@@ -25,6 +27,8 @@ function SearchSuggestion(props) {
 						className="multiselect-ingredients"
 						options={props.ingrOptions}
 						onChange={props.updateExclude}
+						getOptionLabel={option => option['name']}
+						getOptionValue={option => option['name']}
 					/>
 				</div>
 			</div>

@@ -30,6 +30,7 @@ class App extends Component {
 
 	componentDidMount() {
 		this.axios.get('https://drinkdb-api.herokuapp.com/ingredients')
+		//this.axios.get('http://localhost:5000/ingredients')
 		.then(response => {
 			this.setState({ingrOptions: response.data});
 		});
@@ -38,7 +39,7 @@ class App extends Component {
 	handleSearchSpecific() {
 		const this_ref = this;
 		this.axios.get('https://drinkdb-api.herokuapp.com/drink', {
-		//this.axios.get('https://drinkdb-api.herokuapp.com/drink', {
+		//this.axios.get('http://localhost:5000/drink', {
 			params: {
 				'name': this.state.specificSearchName
 			}
@@ -58,6 +59,7 @@ class App extends Component {
 		const this_ref = this;
 
 		this.axios.get('https://drinkdb-api.herokuapp.com/suggestion', {
+		//this.axios.get('http://localhost:5000/suggestion', {
 			params: {
 				'ingrInclude': this_ref.state.ingrInclude,
 				'ingrExclude': this_ref.state.ingrExclude
@@ -83,7 +85,7 @@ class App extends Component {
 		const keys = Object.keys(params);
 		keys.forEach(key => {
 			params[key].forEach(ingr => {
-				options += key + '=' + ingr.value + '&';
+				options += key + '=' + ingr.name + '&';
 			});
 		});
 
