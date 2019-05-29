@@ -37,7 +37,7 @@ class App extends Component {
 
 	handleSearchSpecific() {
 		const this_ref = this;
-		this.axios.get('http://localhost:5000/drink', {
+		this.axios.get('http://drinkdb-api.herokuapp.com/drink', {
 		//this.axios.get('https://drinkdb-api.herokuapp.com/drink', {
 			params: {
 				'name': this.state.specificSearchName
